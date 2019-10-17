@@ -23,6 +23,9 @@ class Instructor extends Person{
     grade(studentObj, subject){
         console.log(`${studentObj.name} received a perfect score in ${subject}!`)
     };
+    gradeChange(studentObj){
+        studentObj.grade = (studentObj.grade + (Math.floor(Math.random() * 21) - 10))
+    };
 };
 
 class Student extends Person{
@@ -31,6 +34,7 @@ class Student extends Person{
         this.previousBackground = props.PreviousBackground;
         this.className = props.className;
         this.favSubjects = props.favSubjects;
+        this.grade = props.grade;
     }
     listSubjects(){
         console.log(`${this.favSubjects}`)
@@ -41,6 +45,13 @@ class Student extends Person{
     sprintChallenge(subject){
         console.log(`${this.name} has begun sprint challenge on ${subject}`)
     };
+    graduate(){
+        if (this.grade > 70) {
+            return console.log(`${this.name} you are ready to graduate!`)
+        } else {
+            return console.log(`${this.name} you need to raise your GPA!`)
+        }
+    }
 }
 
 class ProjectManagers extends Instructor{
@@ -69,7 +80,8 @@ const joe = new Student({
     location: 'the OC',
     previousBackground: 'Nothing important',
     className: 'Computer Science',
-    favSubjects: ['math', 'science']
+    favSubjects: ['math', 'science'],
+    grade: 67
 });
 
 const pedro = new Instructor({
@@ -106,3 +118,7 @@ joe.PRAssignment('JS');
 joe.sprintChallenge('JS');
 isabella.standUp('web25');
 isabella.debugsCode(joe, 'arrays')
+console.log(joe.grade);
+pedro.gradeChange(joe);
+console.log(joe.grade);
+joe.graduate();
